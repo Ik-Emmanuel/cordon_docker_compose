@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -o errexit
+
+set -o pipefail
+
+set -o nounset
+
+
+export FLASK_APP=/opt/app.py
+export FLASK_ENV=development
+export FLASK_DEBUG=0
+
+
+# export FLASK_RUN_CERT=adhoc
+flask run --host=0.0.0.0 
+

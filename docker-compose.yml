@@ -1,0 +1,58 @@
+version: "3.9"
+
+services:
+    apiserver:
+        build:
+            context: .
+            dockerfile: ./docker/local/flask/Dockerfile
+        command: /start
+        volumes:
+            - .:/opt/app
+            - /users/rsg-new/eik/projects/Personal_projects/frontend_dev/react_nextjs/cordon_portal/file_volume:/mnt/file_storage
+            
+        ports:
+            - "5000:5000"
+        env_file:
+            - .env
+        networks:
+            - cordon-net
+
+    client:
+        build:
+            context: ./cordon_ui
+            dockerfile: ./docker/local/Dockerfile
+        restart: on-failure
+        ports:
+        - "3000:3000"
+        volumes:
+            - /app/node_modules
+            - ./cordon_ui/public:/app/public
+            - /users/rsg-new/eik/projects/Personal_projects/frontend_dev/react_nextjs/cordon_portal/file_volume:/app/storage
+        environment:
+            - STORAGE_DIR=/app/storage
+            #http://localhost:8080
+            - NEXT_PUBLIC_APP_URL=http://localhost:8080
+            - NEXTAUTH_URL=http://localhost:8080
+        networks:
+            - cordon-net
+
+
+    nginx:
+        restart: always
+        depends_on:
+            - apiserver
+        build:
+            context: ./docker/local/nginx
+            dockerfile: Dockerfile
+        ports:
+            - "8080:80"
+        networks:
+            - cordon-net
+
+networks:
+    cordon-net:
+        driver: bridge
+
+volumes:
+    nextjs_public:
+
