@@ -39,17 +39,14 @@ const About = () => {
 
         <div className="w-full   mx-auto lg:w-1/2  pr-4 mt-4">
           <p className=" text-[16px] tracking-tighter lg:pr-20 text-neutral-400 text-muted-foreground ">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Delectus
-            ullam fuga reprehenderit animi cupiditate, enim voluptatum, vero,
-            hic voluptates necessitatibus laudantium architecto ut similique
-            facilis doloribus quibusdam. Beatae, nostrum nesciunt! Lorem ipsum
-            dolor, sit amet consectetur adipisicing elit. Provident blanditiis,
-            delectus, dolorum ab tempore dolorem omnis odit exercitationem et
-            soluta corrupti, repellendus amet? Voluptatem debitis id dolorum
-            iure rerum. Inventore! <br /> <br /> Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Maiores nam excepturi distinctio
-            aspernatur corrupti illum! Cupiditate id distinctio ea odio ab
-            dolores, ut ullam iste maxime maiores ducimus explicabo eos.
+            A suite of oceanographic data products from satellite-borne, fixed
+            position, and mobile sensors. delectus, dolorum ab tempore dolorem
+            omnis odit exercitationem et soluta corrupti, repellendus amet?
+            Voluptatem debitis id dolorum iure rerum. Inventore! <br /> <br />{" "}
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nam
+            excepturi distinctio aspernatur corrupti illum! Cupiditate id
+            distinctio ea odio ab dolores, ut ullam iste maxime maiores ducimus
+            explicabo eos.
           </p>
         </div>
       </div>
