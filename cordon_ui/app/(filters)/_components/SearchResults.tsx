@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+import { Suspense, useEffect, useState, useTransition } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import qs from "query-string";
 import {
   Pagination,
   PaginationContent,
@@ -30,7 +33,60 @@ import {
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 
+import { get_search } from "@/actions/search-datasets";
+
+interface QueryParams {
+  format?: string;
+  keyword?: string;
+  source?: string;
+  theme?: string;
+}
+
 const SearchResults = () => {
+  const router = useRouter();
+  const params = useSearchParams();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | undefined>("");
+  const [success, setSuccess] = useState<string | undefined>("");
+
+  const [keyword, setKeyWord] = useState<string | undefined>("");
+  const [format, setFormat] = useState<string | undefined>("");
+  const [source, setSource] = useState<string | undefined>("");
+  const [theme, setTheme] = useState<string | undefined>("");
+
+  useEffect(() => {
+    // fetch and use the params
+    if (params) {
+      let currentQuery: QueryParams = {};
+      currentQuery = qs.parse(params.toString());
+      console.log(currentQuery);
+      console.log(currentQuery?.keyword);
+
+      //set values
+      setKeyWord(currentQuery?.keyword);
+    }
+  }, [params]);
+
+  useEffect(() => {
+    // fetch and use the params
+    if (keyword) {
+      const data = {
+        keyword: keyword as string,
+      };
+      startTransition(() => {
+        //@ts-ignore
+        get_search(data).then((data) => {
+          if (data?.error) {
+            setError(data.error);
+          }
+          if (data?.success) {
+            console.log(data);
+          }
+        });
+      });
+    }
+  }, [keyword]);
+
   return (
     <>
       <section className="flex flex-col">

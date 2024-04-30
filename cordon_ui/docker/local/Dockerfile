@@ -1,9 +1,12 @@
+# Stage 1: Base
 FROM node:18-alpine AS base
 
+RUN apk add --no-cache libc6-compat
+
+# Stage 2: Dependencies
 # Install dependencies only when needed
 FROM base AS deps
 
-RUN apk add --no-cache libc6-compat
 RUN mkdir -p /opt/logs && mkdir -p /app
 WORKDIR /app
 

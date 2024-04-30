@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Suspense } from "react";
 import Hero from "../_components/Hero";
 import SearchResults from "../_components/SearchResults";
@@ -22,7 +23,9 @@ const SearchPage = () => {
         </Suspense>
         <div className="flex min-h-screen flex-1 flex-col px-2 pb-6 pt-10 max-md:pb-14 sm:px-14">
           <div className="w-full">
-            <SearchResults />
+            <Suspense>
+              <SearchResults />
+            </Suspense>
           </div>
         </div>
       </div>

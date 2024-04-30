@@ -14,6 +14,8 @@ from datetime import datetime
 import json
 import psycopg2
 import shutil
+import requests
+from urllib.parse import quote
 
 path = (os.path.dirname(__file__))
 env_file = os.path.join(path, ".env")
@@ -38,19 +40,36 @@ def fetch_env_or_config(app, value):
         return None
 
 
+# ================================ helper functions
+def format_search_word(keyword:str)-> str:
+    if ' ' in keyword:
+        return quote(keyword)
+    else:
+        return keyword
+   
+
+
+def get_search(baseurl: str, keyword:str):
+    formatted_keyword = format_search_word(keyword)
+    search_url = f"{baseurl}/search/index.json?page=1&itemsPerPage=100000&searchFor={formatted_keyword}"
+    response = requests.get(search_url)
+    if response.status_code == 200:
+        print(response.json)
+    else:
+        print(f"Error: {response.status_code}")
+    
+    return response
+
+
+
 
 def create_app(secure_client_credential=None):
     app = Flask(__name__, root_path=Path(__file__).parent) #initialize Flask app
     # setup_db(app)
-    
-    
     app.config.from_object(app_config)
-    
     storage_path = fetch_env_or_config(app,'FILE_STORAGE_PATH')
-    IMAGE_DIR = os.path.join(storage_path, 'destination_files')
-    PDF_DIR = os.path.join(storage_path, 'destination_docs')
 
-    # overide with env variables
+    # override with env variables
     app.config.update(
     DATABASE = fetch_env_or_config(app,'DATABASE'),
     DATABASE_USER = fetch_env_or_config(app,'DATABASE_USER'),
@@ -83,36 +102,40 @@ def create_app(secure_client_credential=None):
         from werkzeug.middleware.proxy_fix import ProxyFix
         app.wsgi_app = ProxyFix(app.wsgi_app, x_proto=1, x_host=1)
         
-        
+    
+    # ================= Route functions    
     @app.route('/apiserver')
     def index():
         return jsonify({
             "backend_status":"Active"
         })
     
+    @app.route('/apiserver/async')
+    async def test_async():
+        return jsonify({
+            "backend_async_status":"Active"
+        })
     
-    @app.route('/apiserver/test')
-    def page_test():
-        return render_template('index.html')
-    
-    
-    @app.route('/apiserver/images/<filename>')
-    def serve_image(filename):
-        return send_from_directory(IMAGE_DIR, filename)
+    @app.route('/apiserver/search',  methods=['POST', 'OPTIONS'])
+    async def search():
+        data ={}
+        if request.method == 'POST':
+            data = request.json
+            print("we are here ***", data)
+            keyword = data.get('keyword', None)
+            if not keyword:
+                return jsonify({
+                "error":"No keyword passed"
+            }, status=400)
+            baseurl="https://catalogue.cordon.uk/erddap"
+            search_response = get_search(baseurl, keyword)
+            print(search_response.json())
+            return search_response.json()
+        
+        return  jsonify({'message':'This endpoint requires post method'})
 
-        envelope_id = request.form['envelope_id']
-        document_id = "combined"
-        
-        try:
-            result = get_envelop_documents(envelope_id, document_id)
-            return jsonify(result)
-        except Exception as e:
-            print(e)
-            result = {
-                "data":False
-            }
-            return jsonify(result)
-        
+    
+    
     return app
 
 

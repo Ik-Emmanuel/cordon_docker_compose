@@ -39,14 +39,21 @@ const About = () => {
 
         <div className="w-full   mx-auto lg:w-1/2  pr-4 mt-4">
           <p className=" text-[16px] tracking-tighter lg:pr-20 text-neutral-400 text-muted-foreground ">
-            A suite of oceanographic data products from satellite-borne, fixed
-            position, and mobile sensors. delectus, dolorum ab tempore dolorem
-            omnis odit exercitationem et soluta corrupti, repellendus amet?
-            Voluptatem debitis id dolorum iure rerum. Inventore! <br /> <br />{" "}
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores nam
-            excepturi distinctio aspernatur corrupti illum! Cupiditate id
-            distinctio ea odio ab dolores, ut ullam iste maxime maiores ducimus
-            explicabo eos.
+            CORDON – Central Oceanographic Repository of Data from Observing
+            Networks – is a virtual digital infrastructure and data analysis
+            platform. It is a flexible, scalable platform offering access to a
+            range of digital tools for exploring oceanographic data from various
+            sources. It contains a suite of oceanographic data products from
+            satellite-borne, fixed position, and mobile sensors.
+            <br /> <br />
+            The CORDON Data Catalogue will maintain a record of data which are
+            currently available for analysis within the CORDON platform. Any
+            data automatically uploaded as part of a routine delivery will be
+            recorded in the catalogue once the delivery is confirmed; the record
+            will include details of spatial and temporal extent, data format,
+            and data access endpoints. The system exists to serve the needs of
+            the users who wish to use it to extract, combine, analyse, and
+            export oceanographic data to answer an extant question.
           </p>
         </div>
       </div>

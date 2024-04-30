@@ -1,4 +1,4 @@
-Flask>1.1.4,<3
+flask[async]
 werkzeug>2.0
 flask-session>=0.4
 python-dotenv

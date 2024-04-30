@@ -1,7 +1,7 @@
 
 FROM ubuntu:20.04
 
-LABEL title="pmlapps_sasplatform_backend"
+LABEL title="cordonportal_backend"
 
 # System packages
 RUN apt-get update && \
