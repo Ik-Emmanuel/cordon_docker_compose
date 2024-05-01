@@ -7,6 +7,8 @@ import { SIDE_FILTERS } from "../../constants";
 import { useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { filterResultsByInstitutions } from "@/utils";
+
 import { Filter, X } from "lucide-react";
 
 import { Button } from "../../../components/ui/button";
@@ -31,13 +33,17 @@ import {
 
 interface FilterProps {
   institutions?: string[];
-  searchResults?: {}[];
-  setSearchResult: React.Dispatch<
+  searchResults?: ResultDataset[] | undefined;
+  setSearchResult?: React.Dispatch<
     React.SetStateAction<ResultDataset[] | undefined>
   >;
 }
 
-const Filters = ({ institutions, searchResults }: FilterProps) => {
+const Filters = ({
+  institutions,
+  searchResults,
+  setSearchResult,
+}: FilterProps) => {
   const router = useRouter();
   const params = useSearchParams();
 
@@ -84,6 +90,14 @@ const Filters = ({ institutions, searchResults }: FilterProps) => {
     );
 
     router.push(url);
+    const sourceFilteredResult = filterResultsByInstitutions(
+      searchResults,
+      checkedSourceItems
+    );
+    if (sourceFilteredResult && sourceFilteredResult.length > 0) {
+      //@ts-ignore
+      setSearchResult(sourceFilteredResult);
+    }
   }, [
     router,
     params,

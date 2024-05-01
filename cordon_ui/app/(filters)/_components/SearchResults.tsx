@@ -114,14 +114,22 @@ const SearchResults = () => {
     <>
       <Suspense>
         <div className=" hidden max-sm:flex border-neutral-100  lg:border-r ">
-          <Filters institutions={institutions} searchResults={searchResult} />
+          <Filters
+            institutions={institutions}
+            searchResults={searchResult}
+            setSearchResult={setSearchResult}
+          />
         </div>
       </Suspense>
 
       <div className="datasetviewer justify-center flex px-2 max-sm::flex-col mx-auto ">
         <Suspense>
           <div className="hidden md:flex border-neutral-100  lg:border-r ">
-            <Filters institutions={institutions} searchResults={searchResult} />
+            <Filters
+              institutions={institutions}
+              searchResults={searchResult}
+              setSearchResult={setSearchResult}
+            />
           </div>
         </Suspense>
         <div className="flex min-h-screen flex-1 flex-col px-2 pb-6 pt-10 max-md:pb-14 sm:px-14">

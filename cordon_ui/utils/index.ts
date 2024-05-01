@@ -49,3 +49,15 @@ export function getInstitutionsSearchResults(results: ResultDataset[]): string[]
     const uniqueInstitutions: string[] = Array.from(uniqueInstitutionsSet);
     return uniqueInstitutions;
 }
+
+
+export function filterResultsByInstitutions(results: ResultDataset[] | undefined, institutions: string[]): ResultDataset[] | undefined {
+    // Filter the results based on the institutions array
+    if (results) {
+        return results.filter(result => {
+            // Check if the institution of the result is included in the institutions array
+            return institutions.includes(result.institution || '');
+        });
+    }
+
+}
