@@ -139,8 +139,9 @@ const SearchResults = () => {
                 <div className="flex-1 mb-14 mt-10">
                   <div className="flex ">
                     <h2 className="text-2xl">
-                      <span className="font-semibold">Search Results:</span>{" "}
-                      {(searchResult && searchResult?.length) || "0"} datasets
+                      <span className="font-semibold">Search Results: </span>{" "}
+                      {(searchResult && searchResult?.length > 0) || "0"}{" "}
+                      datasets
                     </h2>
                   </div>
 
@@ -225,9 +226,20 @@ const SearchResults = () => {
                       </>
                     ) : (
                       <>
-                        <h2 className="text-2xl">
-                          No datasets found for keyword: <b>{keyword}</b>{" "}
-                        </h2>
+                        {keyword && keyword?.length > 0 ? (
+                          <>
+                            {" "}
+                            <h2 className="text-2xl">
+                              No datasets found for keyword: <b>{keyword}</b>
+                            </h2>
+                          </>
+                        ) : (
+                          <>
+                            <p className="text-neutral-400">
+                              Enter a keyword to search for datasets.
+                            </p>
+                          </>
+                        )}
                       </>
                     )}
                   </div>
