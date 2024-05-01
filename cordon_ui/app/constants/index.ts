@@ -20,19 +20,27 @@ export const HERO = {
     "Central Oceanographic Repository of Data from Observing Networks Open Data Portal.  Access to a range of digital tools for exploring oceanographic data from various sources. "
 };
 
+// export const SIDE_FILTERS = [
+//   {
+//     title: "Source",
+//     items: ["PML", "Atlas", "CMS", "C3S", "NOAA"]
+//   },
+
+//   {
+//     title: "Theme",
+//     items: ["Satellite (Sentinel-2)", "Satellite (Sentinel-3)", "Insitu Data", "Analysis Ready Data",]
+//   },
+//   {
+//     title: "File Formats",
+//     items: ["CSV", "XLS", "PDF", "NetCDF", "JSON"]
+//   }
+// ]
+
 export const SIDE_FILTERS = [
-  {
-    title: "Source",
-    items: ["PML", "Atlas", "CMS", "C3S", "NOAA"]
-  },
 
   {
-    title: "Theme",
-    items: ["Satellite (Sentinel-2)", "Satellite (Sentinel-3)", "Insitu Data", "Analysis Ready Data",]
-  },
-  {
     title: "File Formats",
-    items: ["CSV", "XLS", "PDF", "NetCDF", "JSON"]
+    items: ["CSV", "XLS", "PDF", "NetCDF"]
   }
 ]
 

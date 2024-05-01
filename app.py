@@ -1,8 +1,8 @@
 import logging
 import os
-import uuid
-import datetime
-from flask import Flask, current_app, abort, render_template, redirect, url_for, request,session, jsonify, send_from_directory
+import json
+
+from flask import Flask, render_template, redirect, url_for, request,session, jsonify, send_from_directory
 from flask_session import Session
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import BadRequest, HTTPException
@@ -54,14 +54,29 @@ def get_search(baseurl: str, keyword:str):
     search_url = f"{baseurl}/search/index.json?page=1&itemsPerPage=100000&searchFor={formatted_keyword}"
     response = requests.get(search_url)
     if response.status_code == 200:
-        print(response.json)
+        return response
+    else:
+        return None
+    
+
+def get_searched_full_details(baseurl: str, obtained_ids: list):
+    all_datasets_search_url = f"{baseurl}/tabledap/allDatasets.json"
+    response = requests.get(all_datasets_search_url)
+    if response.status_code == 200:
+        all_datasets_json = response.json()
+        all_datasets_rows = all_datasets_json["table"]["rows"]
+        
+        columns = ["datasetID", "accessible","institution", "dataStructure", "cdm_data_type","class", "title","minLongitude", "maxLongitude","longitudeSpacing", "minLatitude", "maxLatitude", "latitudeSpacing", "minAltitude","maxAltitude", "minTime", "maxTime", "timeSpacing", "griddap", "subset", "tabledap", "MakeAGraph","sos", "wcs", "wms","files", "fgdc","iso19115", "metadata", "sourceUrl", "infoUrl", "rss", "email",   "testOutOfDate","outOfDate", "summary" ]
+        
+        results = [item for item in all_datasets_rows if item[0] in obtained_ids]
+        response_data = [{column: value for column, value in zip(columns, row)} for row in results]
+        
+        json_response = response_data
+        return json_response
     else:
         print(f"Error: {response.status_code}")
     
-    return response
-
-
-
+    
 
 def create_app(secure_client_credential=None):
     app = Flask(__name__, root_path=Path(__file__).parent) #initialize Flask app
@@ -121,7 +136,6 @@ def create_app(secure_client_credential=None):
         data ={}
         if request.method == 'POST':
             data = request.json
-            print("we are here ***", data)
             keyword = data.get('keyword', None)
             if not keyword:
                 return jsonify({
@@ -129,15 +143,26 @@ def create_app(secure_client_credential=None):
             }, status=400)
             baseurl="https://catalogue.cordon.uk/erddap"
             search_response = get_search(baseurl, keyword)
-            print(search_response.json())
-            return search_response.json()
-        
+            if search_response and search_response.status_code  == 200:
+                results = search_response.json()
+                data_obtained = results["table"]["rows"]
+                dataset_ids = [i[-1] for i in data_obtained]
+                final_results = get_searched_full_details(baseurl, dataset_ids)
+                if final_results:
+                    return jsonify(final_results)
+            else:
+                return jsonify([])
+            
         return  jsonify({'message':'This endpoint requires post method'})
 
     
     
     return app
 
+
+    #"columnNames": ["griddap","Subset","tabledap","Make A Graph","wms", "files", "Title", "Summary", "FGDC", "ISO 19115","Info","Background Info", "RSS", "Email","Institution","Dataset ID"],
+
+    # "full columnNames": ["datasetID", "accessible","institution", "dataStructure", "cdm_data_type","class", "title","minLongitude", "maxLongitude","longitudeSpacing", "minLatitude", "maxLatitude", "latitudeSpacing", "minAltitude","maxAltitude", "minTime", "maxTime", "timeSpacing", "griddap", "subset", "tabledap", "MakeAGraph","sos", "wcs", "wms","files", "fgdc","iso19115", "metadata", "sourceUrl", "infoUrl", "rss", "email",   "testOutOfDate","outOfDate", "summary" ],
 
 if __name__ == '__main__':
     app=create_app() #running flask's dev server

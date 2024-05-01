@@ -36,9 +36,9 @@ const SearchForm = () => {
       <div className="flex w-[90%] md:w-full items-end justify-between gap-4 rounded-lg border border-neutral-600  backdrop-blur-lg sm:grid-cols-2 lg:grid-cols-2 p-6">
         <div className="w-full">
           <div className="relative">
-            <span className="text-white font-semibold">
+            {/* <span className="text-white font-semibold">
               Search For Datasets
-            </span>
+            </span> */}
             <Input
               className="w-full"
               value={searchWord}

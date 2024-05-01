@@ -1,6 +1,7 @@
 "use client";
 
 import qs from "query-string";
+import { ResultDataset } from "@/types/types";
 import React, { useState, useEffect } from "react";
 import { SIDE_FILTERS } from "../../constants";
 import { useCallback } from "react";
@@ -28,16 +29,25 @@ import {
   SheetTrigger,
 } from "../../../components/ui/sheet";
 
-const Filters = () => {
+interface FilterProps {
+  institutions?: string[];
+  searchResults?: {}[];
+  setSearchResult: React.Dispatch<
+    React.SetStateAction<ResultDataset[] | undefined>
+  >;
+}
+
+const Filters = ({ institutions, searchResults }: FilterProps) => {
   const router = useRouter();
   const params = useSearchParams();
 
   // /fetch and use the params
-  // if (params) {
-  //   let currentQuery = {};
-  //   currentQuery = qs.parse(params.toString());
-  //   console.log(currentQuery);
-  // }
+  if (params) {
+    let currentQuery = {};
+    currentQuery = qs.parse(params.toString());
+    console.log("The current set params");
+    console.log(currentQuery);
+  }
 
   const [checkedSourceItems, setCheckedSourceItems] = useState<string[]>([]);
   const [checkedThemeItems, setCheckedThemeItems] = useState<string[]>([]);
@@ -150,7 +160,9 @@ const Filters = () => {
       <section className=" hide-scroll-bar  left-0 top-0 flex max-h-full  overflow-y-auto  w-fit flex-col justify-between  backdrop-blur-2xl p-6 pt-10 max-sm:hidden lg:w-[280px]">
         <div className="flex flex-1 flex-col gap-4">
           <h2 className="font-semibold text-xl text-center">
-            Refine Search Results
+            {searchResults &&
+              searchResults.length > 0 &&
+              "Refine Search Results"}
           </h2>
 
           {checkedSourceItems.length > 0 ||
@@ -171,53 +183,113 @@ const Filters = () => {
           )}
 
           <Accordion type="multiple" className="w-full">
-            {SIDE_FILTERS.map((item, index) => (
-              <AccordionItem key={index} value={item.title}>
-                <AccordionTrigger className="font-bold hover:no-underline hover:border-b-blue-600 hover:border-b-4 duration-200">
-                  <div className="flex gap-2 text-left  items-center">
-                    <Filter size={16} strokeWidth={1} className="text-sm" />
-                    {item.title}
-                  </div>
-                </AccordionTrigger>
-                <AccordionContent className="text-neutral-400">
-                  <div className="mb-2 text-right flex items-end">
-                    <Button
-                      variant="outline"
-                      className="mb-2"
-                      onClick={() => handleCheckboxClear(item.title)}
-                    >
-                      Clear {item.title} Filter
-                      {/* <span className="ml-4">X</span> */}
-                    </Button>
-                  </div>
-                  {item.items.map((filterItem, filterItemIndex) => (
-                    <div
-                      key={filterItemIndex}
-                      className="flex items-center space-x-2 gap-1 mb-1"
-                    >
-                      <input
-                        className=""
-                        type="checkbox"
-                        checked={
-                          item.title === "Source"
-                            ? checkedSourceItems.includes(filterItem)
-                            : item.title === "Theme"
-                            ? checkedThemeItems.includes(filterItem)
-                            : checkedFormatItems.includes(filterItem)
-                        }
-                        onChange={() =>
-                          handleCheckboxChange(item.title, filterItem)
-                        }
-                      />
-
-                      <label htmlFor={filterItem} className="text-neutral-600">
-                        {filterItem}
-                      </label>
+            {institutions &&
+            institutions.length > 0 &&
+            searchResults &&
+            searchResults?.length > 0 ? (
+              <>
+                <AccordionItem value="Source">
+                  <AccordionTrigger className="font-bold hover:no-underline hover:border-b-blue-600 hover:border-b-4 duration-200">
+                    <div className="flex gap-2 text-left  items-center">
+                      <Filter size={16} strokeWidth={1} className="text-sm" />
+                      Source
                     </div>
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-neutral-400">
+                    <div className="mb-2 text-right flex items-end">
+                      <Button
+                        variant="outline"
+                        className="mb-2"
+                        onClick={() => handleCheckboxClear("Source")}
+                      >
+                        Clear Source Filter
+                      </Button>
+                    </div>
+                    {institutions.map((filterItem, filterItemIndex) => (
+                      <div
+                        key={filterItemIndex}
+                        className="flex items-center space-x-2 gap-1 mb-1"
+                      >
+                        <input
+                          className=""
+                          type="checkbox"
+                          checked={checkedSourceItems.includes(filterItem)}
+                          onChange={() =>
+                            handleCheckboxChange("Source", filterItem)
+                          }
+                        />
+
+                        <label
+                          htmlFor={filterItem}
+                          className="text-neutral-600"
+                        >
+                          {filterItem}
+                        </label>
+                      </div>
+                    ))}
+                  </AccordionContent>
+                </AccordionItem>
+              </>
+            ) : (
+              <> </>
+            )}
+
+            {searchResults && searchResults?.length > 0 ? (
+              <>
+                {SIDE_FILTERS.map((item, index) => (
+                  <AccordionItem key={index} value={item.title}>
+                    <AccordionTrigger className="font-bold hover:no-underline hover:border-b-blue-600 hover:border-b-4 duration-200">
+                      <div className="flex gap-2 text-left  items-center">
+                        <Filter size={16} strokeWidth={1} className="text-sm" />
+                        {item.title}
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="text-neutral-400">
+                      <div className="mb-2 text-right flex items-end">
+                        <Button
+                          variant="outline"
+                          className="mb-2"
+                          onClick={() => handleCheckboxClear(item.title)}
+                        >
+                          Clear {item.title} Filter
+                          {/* <span className="ml-4">X</span> */}
+                        </Button>
+                      </div>
+                      {item.items.map((filterItem, filterItemIndex) => (
+                        <div
+                          key={filterItemIndex}
+                          className="flex items-center space-x-2 gap-1 mb-1"
+                        >
+                          <input
+                            className=""
+                            type="checkbox"
+                            checked={
+                              item.title === "Source"
+                                ? checkedSourceItems.includes(filterItem)
+                                : item.title === "Theme"
+                                ? checkedThemeItems.includes(filterItem)
+                                : checkedFormatItems.includes(filterItem)
+                            }
+                            onChange={() =>
+                              handleCheckboxChange(item.title, filterItem)
+                            }
+                          />
+
+                          <label
+                            htmlFor={filterItem}
+                            className="text-neutral-600"
+                          >
+                            {filterItem}
+                          </label>
+                        </div>
+                      ))}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </>
+            ) : (
+              <> </>
+            )}
           </Accordion>
         </div>
       </section>
