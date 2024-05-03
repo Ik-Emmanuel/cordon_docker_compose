@@ -9,13 +9,12 @@ const Discover = () => {
       id="discover"
       className="container mx-auto my-16 border-b pb-10 px-10 tracking-tighter leading-4"
     >
-      <h2 className="text-center text-2xl tracking-tighter sm:text-4xl lg:text-4xl font-semibold">
+      <h2 className="text-center text-cordon-4 text-2xl tracking-tighter sm:text-4xl lg:text-4xl font-semibold">
         Discover Datasets
       </h2>
 
       <p className="mx-auto my-6 mb-10 max-w-4xl text-center text-neutral-500">
-        Navigate the data Portal through topic groups to navigate through
-        thousands of datasets. Select a topic below.
+        Explore datasets by category. Select a topic below.
       </p>
 
       <div className="flex flex-wrap">
@@ -41,7 +40,7 @@ const Discover = () => {
                     {item.name}
                   </p>
 
-                  <div className="discover-text opacity-0 h-0  border-b-4 border-b-blue-900 px-10 duration-300  inset-0 z-10 flex justify-center items-center text-6x font-semibold">
+                  <div className="discover-text opacity-0 h-0  border-b-4 border-b-cordon_sec-2 px-10 duration-300  inset-0 z-10 flex justify-center items-center text-6x font-semibold">
                     {/* <span>{item.desc}</span> */}
                   </div>
                 </div>

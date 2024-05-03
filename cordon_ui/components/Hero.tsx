@@ -4,7 +4,7 @@ import SearchForm from "./SearchForm";
 
 const Hero = () => {
   return (
-    <div className="hero flex  min-h-[600px] md:min-h-[300px] lg:min-h-[550px]  items-center justify-center">
+    <div className="hero flex  min-h-[600px] md:min-h-[500px] lg:min-h-[550px]  items-center justify-center">
       <div className="flex max-w-4xl flex-col items-center gap-6 pb-0 max-lg:pb-10">
         <div className="space-y-4">
           {/* <h1 className="m-4 text-center text-4xl text-white md:text-5xl lg:text-6xl">

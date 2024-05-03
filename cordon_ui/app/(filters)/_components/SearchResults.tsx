@@ -170,7 +170,7 @@ const SearchResults = () => {
                             !item?.hidden && (
                               <Card
                                 key={index}
-                                className="w-full rounded-lg border border-neutral-200  backdrop-blur-lg cursor-pointer hover:border-b-blue-200 hover:border-b-8  duration-300"
+                                className="w-full rounded-lg border border-neutral-200  backdrop-blur-lg cursor-pointer hover:border-b-cordon_sec-2 hover:border-b-8  duration-300"
                               >
                                 <Link
                                   href={`/datasetview/${item.datasetID}/${item.cdm_data_type}`}
@@ -185,7 +185,7 @@ const SearchResults = () => {
                             <Paperclip size={20} className="text-neutral-300" />
                             {item.file_types.map((filetype, index) => (
                               <Badge
-                                // className="bg-gradient-to-r from-white via-blue-400 to-blue-800"
+                                // className="bg-cordon-3"
                                 key={index}
                               >
                                 {filetype}
@@ -201,7 +201,7 @@ const SearchResults = () => {
                                             <span className="text-neutral-400">
                                               Source:
                                             </span>
-                                            <span className="text-blue-700">
+                                            <span className="text-cordon_sec-2">
                                               {item.institution}
                                             </span>
                                           </span>

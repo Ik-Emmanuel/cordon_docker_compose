@@ -51,9 +51,9 @@ const Navbar = () => {
               className="mr-2"
               src="/logo/CORDON-Logo-icon.png"
               width={33}
-              height={35}
+              height={33}
               alt="logo"
-              style={{ height: "auto", width: "auto" }}
+              // style={{ height: "auto", width: "auto" }}
             />
             <span className="text-xl tracking-tight text-white font-semibold">
               CORDON

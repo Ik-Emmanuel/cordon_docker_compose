@@ -171,13 +171,15 @@ const DataSetView = ({ params }: { params: IParams }) => {
           </Breadcrumb>
         </section>
         <section className="py-4 px-10 mt-4">
-          <h1 className="text-4xl font-semibold">{datasetItem?.title}</h1>
+          <h1 className="text-3xl font-semibold">{datasetItem?.title}</h1>
 
           <div className="flex flex-col lg:flex-row gap-4 mt-8 tracking-tighter">
             <span className="flex gap-2">
               <Building size={20} />
 
-              <span className="text-blue-600">{datasetItem?.institution}</span>
+              <span className="text-cordon_sec-2">
+                {datasetItem?.institution}
+              </span>
             </span>
 
             <span className="flex gap-2">
@@ -185,7 +187,10 @@ const DataSetView = ({ params }: { params: IParams }) => {
 
               <span className="text-neutral-400">
                 Created:
-                <span className="text-neutral-600">{datasetItem?.minTime}</span>
+                <span className="text-neutral-600">
+                  {" "}
+                  {datasetItem?.minTime}
+                </span>
               </span>
             </span>
 
@@ -194,7 +199,10 @@ const DataSetView = ({ params }: { params: IParams }) => {
 
               <span className="text-neutral-400">
                 Updated:
-                <span className="text-neutral-600">{datasetItem?.maxTime}</span>
+                <span className="text-neutral-600">
+                  {" "}
+                  {datasetItem?.maxTime}
+                </span>
               </span>
             </span>
 
@@ -229,7 +237,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                   datasetItem.file_types.map(
                     (filetype: string, index: number) => (
                       <Badge
-                        // className="bg-gradient-to-r from-white via-blue-400 to-blue-800"
+                        // className="bg-cordon-3"
                         key={index}
                       >
                         {filetype}
@@ -290,7 +298,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                         ((datasetItem.MakeAGraph &&
                           datasetItem.MakeAGraph?.length > 0) ||
                           (datasetItem.wms && datasetItem.wms?.length > 0)) && (
-                          <p className="font-bold">Data Visualization</p>
+                          <p className="font-semibold">Data Visualization</p>
                         )}
 
                       {datasetItem &&
@@ -308,7 +316,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                                 size={18}
                                 className="text-neutral-400"
                               />{" "}
-                              <span className="text-blue-600 ">
+                              <span className="text-cordon_sec-2 ">
                                 {" "}
                                 ERDDAP WMS Visualization{" "}
                               </span>
@@ -330,7 +338,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                                 size={18}
                                 className="text-neutral-400"
                               />{" "}
-                              <span className="text-blue-600 ">
+                              <span className="text-cordon_sec-2 ">
                                 {" "}
                                 ERDDAP WCS Visualization{" "}
                               </span>
@@ -351,7 +359,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                                 size={18}
                                 className="text-neutral-400"
                               />{" "}
-                              <span className="text-blue-600 ">
+                              <span className="text-cordon_sec-2 ">
                                 ERDDAP Graph Visualization
                               </span>
                             </Link>
@@ -360,7 +368,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                     </div>
 
                     <div className="space-y-8 mt-6 py-4">
-                      <p className="font-bold">Programmatic Access</p>
+                      <p className="font-semibold">Programmatic Access</p>
 
                       <Tabs defaultValue="Python" className="w-full">
                         <TabsList className="grid w-full grid-cols-2">
@@ -391,7 +399,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
                               <CardTitle>Jupyter</CardTitle>
                               <CardDescription>
                                 Accessing dataset through CORDON Jupyter Hub
-                                <span className="text-blue-600 ml-2">
+                                <span className="text-cordon_sec-2 ml-2">
                                   [https://hub.cordon.space]
                                 </span>
                               </CardDescription>
@@ -435,7 +443,9 @@ const DataSetView = ({ params }: { params: IParams }) => {
                         {/* <Label htmlFor="username" cla>Action</Label> */}
 
                         <div>
-                          <p className="font-bold">Dataset Variable Filter</p>
+                          <p className="font-semibold">
+                            Dataset Variable Filter
+                          </p>
                           <Link
                             href={`https://catalogue.cordon.uk/erddap/${
                               datasetItem.dataStructure === "grid"
@@ -445,7 +455,8 @@ const DataSetView = ({ params }: { params: IParams }) => {
                             target="__blank"
                             className="flex gap-2"
                           >
-                            <span className="text-blue-600 ">
+                            <LinkIcon size={18} className="text-neutral-400" />{" "}
+                            <span className="text-cordon_sec-2 ">
                               {" "}
                               ERDDAP Dataset Variable Filter{" "}
                             </span>
@@ -459,9 +470,9 @@ const DataSetView = ({ params }: { params: IParams }) => {
                       datasetItem.files?.length > 0 && (
                         <div className="space-y-8  py-2">
                           <div>
-                            <p className="font-bold mb-2">File Download</p>
+                            <p className="font-semibold mb-2">File Download</p>
                             <Link href={datasetItem?.files} target="__blank">
-                              <Button className="bg-blue-500 hover:bg-blue-800">
+                              <Button className="bg-cordon_sec-2 hover:bg-cordon_sec-1">
                                 {" "}
                                 <Download className="mr-2" size={15} /> Download
                                 Files

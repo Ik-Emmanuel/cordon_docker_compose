@@ -79,8 +79,8 @@
 .hero {
   background-image: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.849),
-      rgba(77, 76, 76, 0.349)
+      rgba(0, 0, 0, 0.863),
+      rgba(77, 76, 76, 0.26)
     ),
     url("../public/cordon-bg.png");
   background-size: cover;
@@ -101,7 +101,7 @@
 }
 
 .discover:hover p {
-  color: black;
+  color: #f75c03;
 }
 
 .hide-scroll-bar::-webkit-scrollbar {
@@ -179,4 +179,9 @@ input[type="checkbox"]:hover {
 .bg-muted {
   background-color: #93a7ac86;
   color: #2c353b;
+}
+
+.hljs {
+  color: #abb2bf;
+  background: #2c353b;
 }

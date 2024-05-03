@@ -17,9 +17,9 @@ export const Header = ({ label }: HeaderProps) => {
       <div className="flex flex-shrink-0 items-center justify-between">
         <Image
           className="mr-2"
-          src="/cordon-logo.svg"
-          width={30}
-          height={30}
+          src="/logo/CORDON-Logo-icon.png"
+          width={40}
+          height={40}
           alt="logo"
           style={{ height: "auto" }}
         />
@@ -27,7 +27,7 @@ export const Header = ({ label }: HeaderProps) => {
           CORDON
         </span>
       </div>
-      <p className="text-muted-foreground text-sm">{label}</p>
+      <p className="text-muted-foreground text-sm text-cordon_sec-2">{label}</p>
     </div>
   );
 };

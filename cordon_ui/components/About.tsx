@@ -4,7 +4,7 @@ import React from "react";
 const About = () => {
   return (
     <div id="about" className="container mx-auto mt-8 border-b pb-10">
-      <h2 className="mb-10 text-center text-3xl tracking-tighter sm:text-4xl pt-6 lg:text-4xl font-semibold">
+      <h2 className="mb-10  text-cordon-4 text-center text-3xl tracking-tighter sm:text-4xl pt-6 lg:text-4xl font-semibold">
         Core Services
       </h2>
 
@@ -38,7 +38,7 @@ const About = () => {
         </div>
 
         <div className="w-full   mx-auto lg:w-1/2  pr-4 mt-4">
-          <p className=" text-[16px] tracking-tighter lg:pr-20 text-neutral-400 text-muted-foreground ">
+          <p className=" text-[16px] tracking-tighter lg:pr-20 text-neutral-500 text-muted-foreground ">
             CORDON – Central Oceanographic Repository of Data from Observing
             Networks – is a virtual digital infrastructure and data analysis
             platform. It is a flexible, scalable platform offering access to a

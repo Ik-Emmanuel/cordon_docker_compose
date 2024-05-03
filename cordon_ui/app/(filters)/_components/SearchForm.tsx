@@ -52,7 +52,10 @@ const SearchForm = () => {
 
         <div className="w-[20%]">
           <Link href={`/search?keyword=${searchWord}`}>
-            <Button type="submit" className="bg-blue-800 w-full text-white">
+            <Button
+              type="submit"
+              className="bg-cordon_sec-2 w-full text-white hover:bg-cordon_sec-1"
+            >
               Search
             </Button>
           </Link>

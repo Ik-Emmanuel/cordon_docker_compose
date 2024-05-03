@@ -6,14 +6,22 @@ import React from "react";
 
 const FooterSection = () => {
   return (
-    <div className="bg-black text-white py-6">
+    <div className="bg-cordon-4 text-white py-6">
       <div className="container mx-auto">
         <div className="flex flex-wrap border-b border-neutral-700 justify-between items-center">
           <div className="w-full sm:w-1/2 lg:w-6/12 p-4">
             {/* <p className="lg:max-w-sm py-8 text-sm"> {FOOTER.description}</p> */}
             <div className="flex flex-wrap gap-4 my-10">
-              <h2 className="font-bold">CORDON</h2>
-              <Github />
+              <Image
+                className="mr-2"
+                src="/logo/CORDON-Logo-horizontal-white.png"
+                width={150}
+                height={80}
+                alt="logo"
+                style={{ height: "auto" }}
+              />
+              {/* <h2 className="font-bold">CORDON</h2> */}
+              {/* <Github /> */}
               {/* <TwitterIcon /> */}
             </div>
           </div>

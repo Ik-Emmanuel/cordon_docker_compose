@@ -49,13 +49,16 @@ const SearchForm = () => {
               onChange={handleInputChange}
             />
 
-            <SearchIcon className="text-black absolute right-2 bottom-2 text-[9px]" />
+            <SearchIcon className="text-black absolute right-2 bottom-2 text-[9px] hidden md:block" />
           </div>
         </div>
 
         <div className="w-[20%]">
           <Link href={`/search?keyword=${searchWord}`}>
-            <Button type="submit" className="bg-blue-800 w-full text-white">
+            <Button
+              type="submit"
+              className="bg-cordon_sec-2 w-full text-white hover:bg-cordon_sec-1"
+            >
               Search
             </Button>
           </Link>
