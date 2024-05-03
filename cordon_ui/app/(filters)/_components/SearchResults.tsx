@@ -252,7 +252,7 @@ const SearchResults = () => {
                                 {" "}
                                 No datasets found for keyword:
                               </span>{" "}
-                              <b>{keyword}</b>
+                              <b className="font-semibold">{keyword}</b>
                             </h2>
                           </>
                         ) : (

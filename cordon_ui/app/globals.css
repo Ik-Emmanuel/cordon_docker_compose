@@ -77,11 +77,9 @@
 }
 
 .hero {
-  background-image: linear-gradient(
-      to top,
+  background-image: linear-gradient(to top,
       rgba(0, 0, 0, 0.863),
-      rgba(77, 76, 76, 0.26)
-    ),
+      #2c353b72),
     url("../public/cordon-bg.png");
   background-size: cover;
   background-position: center;
@@ -101,7 +99,7 @@
 }
 
 .discover:hover p {
-  color: #f75c03;
+  color: #2c353b;
 }
 
 .hide-scroll-bar::-webkit-scrollbar {
