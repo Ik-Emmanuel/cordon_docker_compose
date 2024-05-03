@@ -51,8 +51,8 @@ const Filters = ({
   if (params) {
     let currentQuery = {};
     currentQuery = qs.parse(params.toString());
-    console.log("The current set params");
-    console.log(currentQuery);
+    // console.log("The current set params");
+    // console.log(currentQuery);
   }
 
   const [checkedSourceItems, setCheckedSourceItems] = useState<string[]>([]);

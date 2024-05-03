@@ -53,6 +53,9 @@ def get_search(baseurl: str, keyword:str):
     formatted_keyword = format_search_word(keyword)
     search_url = f"{baseurl}/search/index.json?page=1&itemsPerPage=100000&searchFor={formatted_keyword}"
     response = requests.get(search_url)
+
+    #"columnNames": ["griddap","Subset","tabledap","Make A Graph","wms", "files", "Title", "Summary", "FGDC", "ISO 19115","Info","Background Info", "RSS", "Email","Institution","Dataset ID"],
+
     if response.status_code == 200:
         return response
     else:
@@ -132,16 +135,18 @@ def create_app(secure_client_credential=None):
         })
     
     @app.route('/apiserver/search',  methods=['POST', 'OPTIONS'])
-    async def search():
-        data ={}
+    @app.route('/apiserver/search/<dataset_id>', methods=['GET'])
+    async def search(dataset_id=None):
+
+        baseurl="https://catalogue.cordon.uk/erddap"
         if request.method == 'POST':
+            data ={}
             data = request.json
             keyword = data.get('keyword', None)
             if not keyword:
                 return jsonify({
                 "error":"No keyword passed"
             }, status=400)
-            baseurl="https://catalogue.cordon.uk/erddap"
             search_response = get_search(baseurl, keyword)
             if search_response and search_response.status_code  == 200:
                 results = search_response.json()
@@ -152,17 +157,27 @@ def create_app(secure_client_credential=None):
                     return jsonify(final_results)
             else:
                 return jsonify([])
-            
-        return  jsonify({'message':'This endpoint requires post method'})
+        # handle GET request
+        if dataset_id:
+            dataset_ids = [dataset_id]
+            final_result = get_searched_full_details(baseurl, dataset_ids)
+            if final_result:
+                return jsonify(final_result[0])
+            else:
+                return jsonify([])
 
-    
-    
+        else:
+            # Handle POST request
+            pass
+            
+        return  jsonify({'message':'This endpoint requires post method or dataset_id'})
+
+
+
+
     return app
 
 
-    #"columnNames": ["griddap","Subset","tabledap","Make A Graph","wms", "files", "Title", "Summary", "FGDC", "ISO 19115","Info","Background Info", "RSS", "Email","Institution","Dataset ID"],
-
-    # "full columnNames": ["datasetID", "accessible","institution", "dataStructure", "cdm_data_type","class", "title","minLongitude", "maxLongitude","longitudeSpacing", "minLatitude", "maxLatitude", "latitudeSpacing", "minAltitude","maxAltitude", "minTime", "maxTime", "timeSpacing", "griddap", "subset", "tabledap", "MakeAGraph","sos", "wcs", "wms","files", "fgdc","iso19115", "metadata", "sourceUrl", "infoUrl", "rss", "email",   "testOutOfDate","outOfDate", "summary" ],
 
 if __name__ == '__main__':
     app=create_app() #running flask's dev server

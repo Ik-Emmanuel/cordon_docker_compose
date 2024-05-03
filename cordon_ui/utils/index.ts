@@ -1,41 +1,5 @@
-interface ResultDataset {
-    MakeAGraph?: string;
-    accessible?: string;
-    cdm_data_type?: string;
-    class?: string;
-    dataStructure?: string;
-    datasetID?: string;
-    email?: string;
-    fgdc?: string;
-    files?: string;
-    griddap?: string;
-    infoUrl?: string;
-    institution?: string;
-    iso19115?: string;
-    latitudeSpacing?: number;
-    longitudeSpacing?: number;
-    maxAltitude?: number | null;
-    maxLatitude?: number;
-    maxLongitude?: number;
-    maxTime?: string;
-    metadata?: string;
-    minAltitude?: number | null;
-    minLatitude?: number;
-    minLongitude?: number;
-    minTime?: string;
-    outOfDate?: number;
-    rss?: string;
-    sos?: string;
-    sourceUrl?: string;
-    subset?: string;
-    summary?: string;
-    tabledap?: string;
-    testOutOfDate?: string;
-    timeSpacing?: number;
-    title?: string;
-    wcs?: string;
-    wms?: string;
-}
+import { ResultDataset } from "@/types/types";
+
 
 export function getInstitutionsSearchResults(results: ResultDataset[]): string[] {
 
@@ -51,13 +15,24 @@ export function getInstitutionsSearchResults(results: ResultDataset[]): string[]
 }
 
 
-export function filterResultsByInstitutions(results: ResultDataset[] | undefined, institutions: string[]): ResultDataset[] | undefined {
-    // Filter the results based on the institutions array
-    if (results) {
-        return results.filter(result => {
-            // Check if the institution of the result is included in the institutions array
-            return institutions.includes(result.institution || '');
-        });
-    }
+// export function filterResultsByInstitutions(results: ResultDataset[] | undefined, institutions: string[]): ResultDataset[] | undefined {
+//     // Filter the results based on the institutions array
+//     if (results) {
+//         return results.filter(result => {
+//             // Check if the institution of the result is included in the institutions array
+//             return institutions.includes(result.institution || '');
+//         });
+//     }
 
+// }
+
+export function filterResultsByInstitutions(results: ResultDataset[] | undefined, institutions: string[]): ResultDataset[]  | undefined {
+    if (!results) return undefined;
+    // Map through the results array
+    return results.map(result => {
+        // Check if the institution of the result is included in the institutions array
+        const hidden = institutions.length === 0 ? false : !institutions.includes(result.institution || '');
+        // Add hidden key to the result object
+        return { ...result, hidden };
+    });
 }

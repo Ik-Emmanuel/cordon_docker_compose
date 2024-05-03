@@ -106,8 +106,8 @@ const SearchResults = () => {
 
   // console.log("checking...");
   // // //@ts-ignore
-  // console.log(institutions || "no data yet");
-  // //@ts-ignore
+  // console.log(searchResult);
+  //@ts-ignore
   // console.log(searchResult?.length ?? "searchResult is undefined or null");
 
   return (
@@ -139,31 +139,49 @@ const SearchResults = () => {
                 <div className="flex-1 mb-14 mt-10">
                   <div className="flex ">
                     <h2 className="text-2xl">
-                      <span className="font-semibold">Search Results: </span>{" "}
-                      {(searchResult && searchResult?.length > 0) || "0"}{" "}
-                      datasets
+                      <span className="font-semibold">
+                        Search Results
+                        {keyword && keyword?.length > 0 ? (
+                          <> (for {keyword}): </>
+                        ) : (
+                          <></>
+                        )}
+                      </span>
+                      {searchResult
+                        ? searchResult.filter((item) => !item.hidden).length ===
+                            1 ||
+                          searchResult.filter((item) => !item.hidden).length ===
+                            0
+                          ? `${
+                              searchResult.filter((item) => !item.hidden).length
+                            } dataset`
+                          : `${
+                              searchResult.filter((item) => !item.hidden).length
+                            } datasets`
+                        : " "}
                     </h2>
                   </div>
 
-                  <div className="hide-scroll-bar flex flex-col gap-4 mt-6 max-h-[80vh] overflow-y-auto  border-t-neutral-200 ">
+                  <div className="hide-scroll-bar max-h-[80vh] overflow-y-auto flex flex-col gap-4 mt-6   border-t-neutral-200 ">
                     {searchResult && searchResult?.length > 0 ? (
                       <>
                         {searchResult.map(
-                          (item: ResultDataset, index: number) => (
-                            <Card
-                              key={index}
-                              className="w-full rounded-lg border border-neutral-200  backdrop-blur-lg cursor-pointer hover:border-b-blue-200 hover:border-b-8  duration-300"
-                            >
-                              <Link
-                                href={`/datasetview/${item.datasetID}/${item.cdm_data_type}`}
+                          (item: ResultDataset, index: number) =>
+                            !item?.hidden && (
+                              <Card
+                                key={index}
+                                className="w-full rounded-lg border border-neutral-200  backdrop-blur-lg cursor-pointer hover:border-b-blue-200 hover:border-b-8  duration-300"
                               >
-                                <CardHeader>
-                                  <CardTitle className="flex flex-col lg:flex-row justify-between  gap-3 ">
-                                    <span className="text-xl font-semibold">
-                                      {item.title}
-                                    </span>
+                                <Link
+                                  href={`/datasetview/${item.datasetID}/${item.cdm_data_type}`}
+                                >
+                                  <CardHeader>
+                                    <CardTitle className="flex flex-col lg:flex-row justify-between  gap-3 ">
+                                      <span className="text-xl font-semibold">
+                                        {item.title}
+                                      </span>
 
-                                    {/* <div className="flex gap-3">
+                                      {/* <div className="flex gap-3">
                             <Paperclip size={20} className="text-neutral-300" />
                             {item.file_types.map((filetype, index) => (
                               <Badge
@@ -174,54 +192,54 @@ const SearchResults = () => {
                               </Badge>
                             ))}
                           </div> */}
-                                  </CardTitle>
-                                  <CardDescription>
-                                    <div className="flex gap-6 sm:flex-col max-sm:flex-col sm:gap-1 max-sm:gap-1 ">
-                                      <div className="flex flex-col lg:flex-row gap-4">
-                                        <span className="flex items-center gap-1">
-                                          <Building size={15} />
-                                          <span className="text-neutral-400">
-                                            Source:
+                                    </CardTitle>
+                                    <CardDescription>
+                                      <div className="flex gap-6 sm:flex-col max-sm:flex-col sm:gap-1 max-sm:gap-1 ">
+                                        <div className="flex flex-col lg:flex-row gap-4">
+                                          <span className="flex items-center gap-1">
+                                            <Building size={15} />
+                                            <span className="text-neutral-400">
+                                              Source:
+                                            </span>
+                                            <span className="text-blue-700">
+                                              {item.institution}
+                                            </span>
                                           </span>
-                                          <span className="text-blue-700">
-                                            {item.institution}
-                                          </span>
-                                        </span>
-                                        {/* <span className="flex items-center gap-1">
+                                          {/* <span className="flex items-center gap-1">
                                 <File size={15} />
                                 <span className="text-neutral-400">Files:</span>
                                 {item.resource_count}
                               </span> */}
-                                      </div>
+                                        </div>
 
-                                      <div className="flex flex-col lg:flex-row gap-4">
-                                        <span className="flex items-center gap-1">
-                                          <Calendar size={15} />
-                                          <span className="text-neutral-400">
-                                            Created:
+                                        <div className="flex flex-col lg:flex-row gap-4">
+                                          <span className="flex items-center gap-1">
+                                            <Calendar size={15} />
+                                            <span className="text-neutral-400">
+                                              Created:
+                                            </span>
+                                            {item.minTime}
                                           </span>
-                                          {item.minTime}
-                                        </span>
-                                        <span className="flex items-center gap-1 text-neutral-700">
-                                          <RefreshCcw size={15} />
-                                          <span className="text-neutral-400">
-                                            Updated:
+                                          <span className="flex items-center gap-1 text-neutral-700">
+                                            <RefreshCcw size={15} />
+                                            <span className="text-neutral-400">
+                                              Updated:
+                                            </span>
+                                            {item.maxTime}
                                           </span>
-                                          {item.maxTime}
-                                        </span>
+                                        </div>
                                       </div>
-                                    </div>
-                                  </CardDescription>
-                                </CardHeader>
-                                <CardContent className="w-[80%]">
-                                  <span className="text-neutral-600">
-                                    {item.summary}
-                                  </span>
-                                </CardContent>
-                                <CardFooter className="flex justify-between"></CardFooter>
-                              </Link>
-                            </Card>
-                          )
+                                    </CardDescription>
+                                  </CardHeader>
+                                  <CardContent className="w-[80%]">
+                                    <span className="text-neutral-600">
+                                      {item.summary}
+                                    </span>
+                                  </CardContent>
+                                  <CardFooter className="flex justify-between"></CardFooter>
+                                </Link>
+                              </Card>
+                            )
                         )}
                       </>
                     ) : (
@@ -230,13 +248,17 @@ const SearchResults = () => {
                           <>
                             {" "}
                             <h2 className="text-2xl">
-                              No datasets found for keyword: <b>{keyword}</b>
+                              <span className="text-neutral-400">
+                                {" "}
+                                No datasets found for keyword:
+                              </span>{" "}
+                              <b>{keyword}</b>
                             </h2>
                           </>
                         ) : (
                           <>
                             <p className="text-neutral-400">
-                              Enter a keyword to search for datasets.
+                              Enter a valid keyword to search for datasets.
                             </p>
                           </>
                         )}

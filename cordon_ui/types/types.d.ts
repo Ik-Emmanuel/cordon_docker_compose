@@ -35,4 +35,5 @@ export interface ResultDataset {
     title?: string;
     wcs?: string;
     wms?: string;
+    hidden?:boolean
 }
