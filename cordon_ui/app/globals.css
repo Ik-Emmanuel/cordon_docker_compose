@@ -79,8 +79,8 @@
 .hero {
   background-image: linear-gradient(
       to top,
-      rgba(0, 0, 0, 0.7),
-      rgba(3, 7, 72, 0.696)
+      rgba(0, 0, 0, 0.849),
+      rgba(77, 76, 76, 0.349)
     ),
     url("../public/cordon-bg.png");
   background-size: cover;
@@ -142,7 +142,7 @@ input[type="checkbox"]::before {
   clip-path: polygon(0 70%, 50% 100%, 100% 30%, 60% 50%, 40% 80%, 20% 50%);
 
   transform: scale(0);
-  background-color: blue;
+  background-color: #f75c03;
 }
 
 input[type="checkbox"]:checked::before {
@@ -151,7 +151,7 @@ input[type="checkbox"]:checked::before {
 
 input[type="checkbox"]:hover {
   color: black;
-  border: 0.15rem solid rgb(35, 78, 250);
+  border: 0.15rem solid #f75c03;
 }
 
 .datasetviewer {
@@ -177,5 +177,6 @@ input[type="checkbox"]:hover {
 }
 
 .bg-muted {
-  background-color: rgb(226, 235, 252);
+  background-color: #93a7ac86;
+  color: #2c353b;
 }

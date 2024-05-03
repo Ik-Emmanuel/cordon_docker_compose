@@ -42,20 +42,20 @@ const Navbar = () => {
     <nav className="fixed top-2 z-50 w-screen px-4">
       <div
         className={`container flex items-center justify-between rounded-lg   backdrop-blur-lg py-3 ${
-          scrollPosition >= 30 || blackNav ? "bg-black" : ""
+          scrollPosition >= 30 || blackNav ? "bg-cordon-4" : ""
         }`}
       >
         <Link className="cursor-pointer" href={"/"}>
           <div className="flex flex-shrink-0 items-center justify-between">
             <Image
               className="mr-2"
-              src="/cordon-logo.svg"
-              width={30}
-              height={30}
+              src="/logo/CORDON-Logo-icon.png"
+              width={33}
+              height={35}
               alt="logo"
               style={{ height: "auto", width: "auto" }}
             />
-            <span className="text-lg tracking-tight text-white font-semibold">
+            <span className="text-xl tracking-tight text-white font-semibold">
               CORDON
             </span>
           </div>
@@ -66,7 +66,7 @@ const Navbar = () => {
             {SEARCH_NAV_LINKS.map((item, index) => (
               <li key={index}>
                 <Link
-                  className="text-sm text-white hover:text-neutral-500"
+                  className="text-sm font-semibold hover:text-cordon_sec-2 text-white "
                   href={item.url}
                 >
                   {item.title}
@@ -78,7 +78,10 @@ const Navbar = () => {
 
         <div className="hidden text-sm text-white lg:flex">
           <LoginButton mode="modal" asChild>
-            <Button variant="outline" className="mr-2 bg-black">
+            <Button
+              variant="outline"
+              className="mr-2  bg-cordon_sec-2 hover:bg-cordon_sec-2 hover:text-white font-semibold"
+            >
               Sign in
             </Button>
           </LoginButton>
@@ -110,7 +113,10 @@ const Navbar = () => {
 
           <div className="flex items-center justify-center pb-8 text-white lg:hidden">
             <LoginButton mode="modal" asChild>
-              <Button variant="outline" className="mr-2 bg-black">
+              <Button
+                variant="outline"
+                className="mr-2 bg-cordon_sec-2 hover:bg-cordon_sec-2 hover:text-white font-semibold"
+              >
                 Sign in
               </Button>
             </LoginButton>

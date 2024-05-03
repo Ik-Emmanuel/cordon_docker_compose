@@ -203,7 +203,7 @@ const Filters = ({
             searchResults?.length > 0 ? (
               <>
                 <AccordionItem value="Source">
-                  <AccordionTrigger className="font-bold hover:no-underline hover:border-b-blue-600 hover:border-b-4 duration-200">
+                  <AccordionTrigger className="font-semibold hover:no-underline hover:border-b-cordon_sec-2 hover:border-b-4 duration-200">
                     <div className="flex gap-2 text-left  items-center">
                       <Filter size={16} strokeWidth={1} className="text-sm" />
                       Source
@@ -252,7 +252,7 @@ const Filters = ({
               <>
                 {SIDE_FILTERS.map((item, index) => (
                   <AccordionItem key={index} value={item.title}>
-                    <AccordionTrigger className="font-bold hover:no-underline hover:border-b-blue-600 hover:border-b-4 duration-200">
+                    <AccordionTrigger className="font-semibold hover:no-underline hover:border-b-cordon_sec-2 hover:border-b-4 duration-200">
                       <div className="flex gap-2 text-left  items-center">
                         <Filter size={16} strokeWidth={1} className="text-sm" />
                         {item.title}
@@ -330,7 +330,7 @@ const Filters = ({
                   <Accordion type="multiple" className="w-full">
                     {SIDE_FILTERS.map((item, index) => (
                       <AccordionItem key={index} value={item.title}>
-                        <AccordionTrigger className="font-bold hover:no-underline">
+                        <AccordionTrigger className="font-semibold hover:no-underline">
                           <div className="flex gap-2 text-left  items-center">
                             <Filter
                               size={16}
