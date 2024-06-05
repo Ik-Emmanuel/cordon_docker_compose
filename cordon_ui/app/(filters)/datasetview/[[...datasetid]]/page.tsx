@@ -135,8 +135,7 @@ const DataSetView = ({ params }: { params: IParams }) => {
             setError(data.error);
           }
           if (data?.success) {
-            console.log("details data");
-            console.log(data);
+            // console.log(data);
             // @ts-ignore
 
             setDatasetItem(data.searchResults?.data);

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import {
   Form,
   FormControl,
@@ -31,10 +31,14 @@ const SearchForm = () => {
     setSearchWord(event.target.value);
   };
 
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <>
       <div className="flex w-[90%] md:w-full items-end justify-between gap-4 rounded-lg border border-neutral-600  backdrop-blur-lg sm:grid-cols-2 lg:grid-cols-2 p-6">
-        <form className="flex gap-2 w-full">
+        <form className="flex gap-2 w-full" onSubmit={handleSubmit}>
           <div className="w-full">
             <div className="relative">
               {/* <span className="text-white font-semibold">

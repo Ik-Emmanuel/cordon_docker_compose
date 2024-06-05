@@ -37,3 +37,7 @@ export interface ResultDataset {
     wms?: string;
     hidden?:boolean
 }
+
+
+// or in a index.d.ts
+// declare interface ResultDataset {}
